@@ -1,0 +1,2749 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Megumi Chi Tiêu</title>
+
+<meta name="description"
+content="Megumi Chi Tiêu - Quản lý chi tiêu cá nhân">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#7c5cff;
+    --primary2:#6045e8;
+    --bg:#f6f7fb;
+    --card:#fff;
+    --text:#202124;
+    --muted:#737782;
+    --border:#e7e8ef;
+    --green:#16a34a;
+    --red:#ef4444;
+    --orange:#f59e0b;
+    --shadow:0 8px 30px rgba(30,30,60,.07);
+}
+
+body.dark{
+    --bg:#11131a;
+    --card:#1a1d26;
+    --text:#f5f5f5;
+    --muted:#a5a8b3;
+    --border:#2b2e38;
+    --shadow:0 8px 30px rgba(0,0,0,.2);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.2s;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= AUTH ================= */
+
+#auth{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:
+        radial-gradient(circle at top left,#a78bfa,transparent 35%),
+        linear-gradient(135deg,#6754e9,#8b5cf6);
+}
+
+.auth-card{
+    width:100%;
+    max-width:430px;
+    background:var(--card);
+    padding:34px;
+    border-radius:25px;
+    box-shadow:0 25px 80px rgba(0,0,0,.22);
+}
+
+.brand-auth{
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+    color:var(--primary);
+    margin-bottom:7px;
+}
+
+.auth-desc{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+.input{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    background:var(--card);
+    color:var(--text);
+    margin-bottom:13px;
+}
+
+.input:focus{
+    border-color:var(--primary);
+}
+
+.btn{
+    border:0;
+    border-radius:11px;
+    padding:12px 16px;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--primary2);
+}
+
+.auth-card .btn-primary{
+    width:100%;
+}
+
+.auth-switch{
+    text-align:center;
+    color:var(--muted);
+    margin-top:18px;
+    font-size:14px;
+}
+
+.auth-switch span{
+    color:var(--primary);
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ================= HEADER ================= */
+
+#app{
+    display:none;
+}
+
+header{
+    height:70px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    color:var(--primary);
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-name{
+    color:var(--muted);
+}
+
+.icon-btn{
+    width:39px;
+    height:39px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:10px;
+}
+
+.logout{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:9px 13px;
+    border-radius:10px;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:28px;
+}
+
+.welcome{
+    margin-bottom:23px;
+}
+
+.welcome h1{
+    font-size:29px;
+    margin-bottom:6px;
+}
+
+.welcome p{
+    color:var(--muted);
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
+    margin-bottom:22px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.stat-title{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:12px;
+}
+
+.stat-value{
+    font-size:24px;
+    font-weight:900;
+}
+
+.blue{
+    color:var(--primary);
+}
+
+.green{
+    color:var(--green);
+}
+
+.red{
+    color:var(--red);
+}
+
+.orange{
+    color:var(--orange);
+}
+
+/* ================= LAYOUT ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.35fr .65fr;
+    gap:20px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+}
+
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.card-title h2{
+    font-size:18px;
+}
+
+/* ================= FORM ================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.group.full{
+    grid-column:1/-1;
+}
+
+.group label{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.group input,
+.group select{
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    outline:none;
+    background:var(--card);
+    color:var(--text);
+}
+
+.group input:focus,
+.group select:focus{
+    border-color:var(--primary);
+}
+
+.types{
+    display:flex;
+    gap:8px;
+}
+
+.type{
+    flex:1;
+    padding:11px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+}
+
+.type.active.expense{
+    background:#fee2e2;
+    border-color:#fecaca;
+    color:var(--red);
+}
+
+.type.active.income{
+    background:#dcfce7;
+    border-color:#bbf7d0;
+    color:var(--green);
+}
+
+/* ================= FILTER ================= */
+
+.filters{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+}
+
+.filters input,
+.filters select{
+    padding:10px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:var(--card);
+    color:var(--text);
+    outline:none;
+}
+
+/* ================= TRANSACTIONS ================= */
+
+.transaction{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.transaction:last-child{
+    border-bottom:0;
+}
+
+.transaction-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
+
+.icon{
+    width:43px;
+    height:43px;
+    min-width:43px;
+    border-radius:13px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f0edff;
+    font-size:20px;
+}
+
+.transaction-name{
+    font-weight:bold;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.transaction-date{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.transaction-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.amount{
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.amount.expense{
+    color:var(--red);
+}
+
+.amount.income{
+    color:var(--green);
+}
+
+.small-btn{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:8px;
+    background:#f1f2f5;
+}
+
+.edit-btn{
+    color:var(--primary);
+}
+
+.delete-btn{
+    color:var(--red);
+    background:#fee2e2;
+}
+
+.empty{
+    text-align:center;
+    padding:35px 10px;
+    color:var(--muted);
+}
+
+/* ================= CATEGORY ================= */
+
+.category-row{
+    margin-bottom:16px;
+}
+
+.category-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-size:13px;
+}
+
+.progress{
+    height:8px;
+    background:var(--border);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:var(--primary);
+}
+
+/* ================= CHART ================= */
+
+.chart-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:250px;
+}
+
+canvas{
+    max-width:100%;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn-secondary{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:9px 13px;
+    border-radius:9px;
+}
+
+.btn-danger{
+    border:0;
+    background:#fee2e2;
+    color:var(--red);
+    padding:10px 13px;
+    border-radius:9px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal-card{
+    width:100%;
+    max-width:450px;
+    background:var(--card);
+    border-radius:20px;
+    padding:23px;
+}
+
+.modal-card h2{
+    margin-bottom:16px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.modal-actions button{
+    flex:1;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:950px){
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:0 14px;
+    }
+
+    .user-name{
+        display:none;
+    }
+
+    .container{
+        padding:18px 12px;
+    }
+
+    .stats{
+        gap:9px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .stat-value{
+        font-size:18px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .group.full{
+        grid-column:auto;
+    }
+
+    .transaction{
+        align-items:flex-start;
+    }
+
+    .transaction-right{
+        flex-direction:column;
+        align-items:flex-end;
+    }
+
+    .filters>*{
+        width:100%;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= ĐĂNG NHẬP ================= -->
+
+<section id="auth">
+
+    <div class="auth-card">
+
+        <div class="brand-auth">
+            💜 Megumi Chi Tiêu
+        </div>
+
+        <div class="auth-desc" id="authDesc">
+            Quản lý chi tiêu cá nhân đơn giản
+        </div>
+
+        <form id="authForm">
+
+            <input
+                id="name"
+                class="input hidden"
+                placeholder="Tên của bạn"
+            >
+
+            <input
+                id="email"
+                class="input"
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                id="password"
+                class="input"
+                type="password"
+                placeholder="Mật khẩu"
+                required
+            >
+
+            <button
+                class="btn btn-primary"
+                id="authButton">
+                Đăng nhập
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+
+            <span id="switchText">
+                Chưa có tài khoản?
+            </span>
+
+            <span
+                id="switchButton"
+                onclick="toggleAuth()">
+                Đăng ký
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app">
+
+<header>
+
+    <div class="logo">
+        💜 Megumi Chi Tiêu
+    </div>
+
+    <div class="header-right">
+
+        <span
+            class="user-name"
+            id="headerName">
+        </span>
+
+        <button
+            class="icon-btn"
+            onclick="toggleDark()"
+            title="Đổi giao diện">
+            🌙
+        </button>
+
+        <button
+            class="logout"
+            onclick="logout()">
+            Đăng xuất
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="welcome">
+
+        <h1>
+            Xin chào,
+            <span id="welcomeName"></span> 👋
+        </h1>
+
+        <p>
+            Quản lý tiền bạc thông minh cùng Megumi Chi Tiêu.
+        </p>
+
+    </section>
+
+
+    <!-- THỐNG KÊ -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Số dư hiện tại
+            </div>
+
+            <div
+                class="stat-value blue"
+                id="balance">
+                0 ₫
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Tổng thu
+            </div>
+
+            <div
+                class="stat-value green"
+                id="income">
+                0 ₫
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Tổng chi
+            </div>
+
+            <div
+                class="stat-value red"
+                id="expense">
+                0 ₫
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Chênh lệch
+            </div>
+
+            <div
+                class="stat-value orange"
+                id="difference">
+                0 ₫
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="grid">
+
+        <!-- ================= LEFT ================= -->
+
+        <div>
+
+            <!-- THÊM GIAO DỊCH -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    <h2>➕ Thêm giao dịch</h2>
+                </div>
+
+                <form id="transactionForm">
+
+                    <div class="form-grid">
+
+                        <div class="group full">
+
+                            <label>
+                                Loại giao dịch
+                            </label>
+
+                            <div class="types">
+
+                                <button
+                                    type="button"
+                                    id="expenseType"
+                                    class="type expense active"
+                                    onclick="setType('expense')">
+                                    ➖ Chi tiêu
+                                </button>
+
+                                <button
+                                    type="button"
+                                    id="incomeType"
+                                    class="type income"
+                                    onclick="setType('income')">
+                                    ➕ Thu nhập
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="group">
+
+                            <label>
+                                Số tiền
+                            </label>
+
+                            <input
+                                id="amount"
+                                class="money-input"
+                                inputmode="decimal"
+                                placeholder="15.600"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="group">
+
+                            <label>
+                                Danh mục
+                            </label>
+
+                            <select id="category">
+
+                                <option value="food">
+                                    🍜 Ăn uống
+                                </option>
+
+                                <option value="transport">
+                                    🚌 Đi lại
+                                </option>
+
+                                <option value="shopping">
+                                    🛍️ Mua sắm
+                                </option>
+
+                                <option value="study">
+                                    📚 Học tập
+                                </option>
+
+                                <option value="health">
+                                    💊 Sức khỏe
+                                </option>
+
+                                <option value="entertainment">
+                                    🎮 Giải trí
+                                </option>
+
+                                <option value="housing">
+                                    🏠 Nhà ở
+                                </option>
+
+                                <option value="salary">
+                                    💵 Lương
+                                </option>
+
+                                <option value="bonus">
+                                    🎁 Thưởng
+                                </option>
+
+                                <option value="other">
+                                    📦 Khác
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="group">
+
+                            <label>
+                                Ngày
+                            </label>
+
+                            <input
+                                id="date"
+                                type="date"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="group">
+
+                            <label>
+                                Ghi chú
+                            </label>
+
+                            <input
+                                id="note"
+                                placeholder="Ví dụ: Ăn trưa"
+                            >
+
+                        </div>
+
+
+                        <div class="group full">
+
+                            <button
+                                class="btn btn-primary">
+                                Thêm giao dịch
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- LỊCH SỬ -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h2>
+                        📋 Lịch sử giao dịch
+                    </h2>
+
+                    <button
+                        class="btn-secondary"
+                        onclick="exportData()">
+                        📤 Xuất
+                    </button>
+
+                </div>
+
+
+                <div class="filters">
+
+                    <input
+                        id="search"
+                        placeholder="🔎 Tìm kiếm..."
+                        oninput="render()"
+                    >
+
+                    <select
+                        id="filterType"
+                        onchange="render()">
+
+                        <option value="all">
+                            Tất cả
+                        </option>
+
+                        <option value="expense">
+                            Chi tiêu
+                        </option>
+
+                        <option value="income">
+                            Thu nhập
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="filterCategory"
+                        onchange="render()">
+
+                        <option value="all">
+                            Tất cả danh mục
+                        </option>
+
+                        <option value="food">
+                            🍜 Ăn uống
+                        </option>
+
+                        <option value="transport">
+                            🚌 Đi lại
+                        </option>
+
+                        <option value="shopping">
+                            🛍️ Mua sắm
+                        </option>
+
+                        <option value="study">
+                            📚 Học tập
+                        </option>
+
+                        <option value="health">
+                            💊 Sức khỏe
+                        </option>
+
+                        <option value="entertainment">
+                            🎮 Giải trí
+                        </option>
+
+                        <option value="housing">
+                            🏠 Nhà ở
+                        </option>
+
+                        <option value="salary">
+                            💵 Lương
+                        </option>
+
+                        <option value="bonus">
+                            🎁 Thưởng
+                        </option>
+
+                        <option value="other">
+                            📦 Khác
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="list"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT ================= -->
+
+        <div>
+
+            <!-- BIỂU ĐỒ -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h2>
+                        📊 Chi tiêu
+                    </h2>
+
+                </div>
+
+                <div class="chart-box">
+
+                    <canvas
+                        id="chart"
+                        width="300"
+                        height="300">
+                    </canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- DANH MỤC -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h2>
+                        📌 Theo danh mục
+                    </h2>
+
+                </div>
+
+                <div id="categories"></div>
+
+            </div>
+
+
+            <!-- DỮ LIỆU -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h2>
+                        ⚙️ Dữ liệu
+                    </h2>
+
+                </div>
+
+                <button
+                    class="btn-secondary"
+                    style="width:100%;margin-bottom:10px"
+                    onclick="importData()">
+                    📥 Nhập dữ liệu
+                </button>
+
+                <button
+                    class="btn-danger"
+                    style="width:100%"
+                    onclick="clearData()">
+                    🗑️ Xóa toàn bộ giao dịch
+                </button>
+
+                <input
+                    type="file"
+                    id="file"
+                    accept=".json"
+                    class="hidden"
+                    onchange="handleImport(event)"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- ================= MODAL SỬA ================= -->
+
+<div
+    class="modal hidden"
+    id="editModal">
+
+    <div class="modal-card">
+
+        <h2>
+            ✏️ Sửa giao dịch
+        </h2>
+
+        <input
+            id="editAmount"
+            class="input"
+            placeholder="Số tiền"
+        >
+
+        <select
+            id="editCategory"
+            class="input">
+
+            <option value="food">🍜 Ăn uống</option>
+            <option value="transport">🚌 Đi lại</option>
+            <option value="shopping">🛍️ Mua sắm</option>
+            <option value="study">📚 Học tập</option>
+            <option value="health">💊 Sức khỏe</option>
+            <option value="entertainment">🎮 Giải trí</option>
+            <option value="housing">🏠 Nhà ở</option>
+            <option value="salary">💵 Lương</option>
+            <option value="bonus">🎁 Thưởng</option>
+            <option value="other">📦 Khác</option>
+
+        </select>
+
+        <input
+            id="editDate"
+            class="input"
+            type="date"
+        >
+
+        <input
+            id="editNote"
+            class="input"
+            placeholder="Ghi chú"
+        >
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                onclick="closeEdit()">
+                Hủy
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="saveEdit()">
+                Lưu
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   CẤU HÌNH
+========================================== */
+
+const categories = {
+
+    food:{
+        name:"Ăn uống",
+        icon:"🍜"
+    },
+
+    transport:{
+        name:"Đi lại",
+        icon:"🚌"
+    },
+
+    shopping:{
+        name:"Mua sắm",
+        icon:"🛍️"
+    },
+
+    study:{
+        name:"Học tập",
+        icon:"📚"
+    },
+
+    health:{
+        name:"Sức khỏe",
+        icon:"💊"
+    },
+
+    entertainment:{
+        name:"Giải trí",
+        icon:"🎮"
+    },
+
+    housing:{
+        name:"Nhà ở",
+        icon:"🏠"
+    },
+
+    salary:{
+        name:"Lương",
+        icon:"💵"
+    },
+
+    bonus:{
+        name:"Thưởng",
+        icon:"🎁"
+    },
+
+    other:{
+        name:"Khác",
+        icon:"📦"
+    }
+
+};
+
+let authMode = "login";
+
+let type = "expense";
+
+let editingId = null;
+
+
+/* ==========================================
+   USERS
+========================================== */
+
+function users(){
+
+    return JSON.parse(
+        localStorage.getItem("megumi_users") || "{}"
+    );
+
+}
+
+function saveUsers(data){
+
+    localStorage.setItem(
+        "megumi_users",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* ==========================================
+   CURRENT USER
+========================================== */
+
+function currentUser(){
+
+    return localStorage.getItem(
+        "megumi_current"
+    );
+
+}
+
+
+/* ==========================================
+   TRANSACTIONS
+========================================== */
+
+function getData(){
+
+    const email = currentUser();
+
+    if(!email) return [];
+
+    return JSON.parse(
+        localStorage.getItem(
+            "megumi_data_" + email
+        ) || "[]"
+    );
+
+}
+
+
+function saveData(data){
+
+    localStorage.setItem(
+        "megumi_data_" + currentUser(),
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* ==========================================
+   FORMAT MONEY
+========================================== */
+
+function money(number){
+
+    return new Intl.NumberFormat(
+        "vi-VN"
+    ).format(number) + " ₫";
+
+}
+
+
+/* ==========================================
+   PARSE MONEY
+========================================== */
+
+function parseMoney(value){
+
+    value =
+        String(value)
+        .trim()
+        .replace(/\s/g,"");
+
+
+    if(!value) return NaN;
+
+
+    /*
+      15.600 → 15600
+      15,600 → 15600
+      15.6   → 15.6
+      15,6   → 15.6
+      15600  → 15600
+    */
+
+    if(
+        value.includes(".") &&
+        value.includes(",")
+    ){
+
+        value =
+            value
+            .replace(/\./g,"")
+            .replace(",", ".");
+
+    }
+
+    else if(value.includes(".")){
+
+        const parts =
+            value.split(".");
+
+        if(
+            parts[parts.length-1].length === 3
+        ){
+
+            value =
+                value.replace(/\./g,"");
+
+        }
+
+    }
+
+    else if(value.includes(",")){
+
+        const parts =
+            value.split(",");
+
+        if(
+            parts[parts.length-1].length === 3
+        ){
+
+            value =
+                value.replace(/,/g,"");
+
+        }else{
+
+            value =
+                value.replace(",", ".");
+
+        }
+
+    }
+
+
+    return Number(value);
+
+}
+
+
+/* ==========================================
+   AUTH
+========================================== */
+
+function toggleAuth(){
+
+    authMode =
+        authMode === "login"
+        ? "register"
+        : "login";
+
+
+    const name =
+        document.getElementById("name");
+
+    const desc =
+        document.getElementById("authDesc");
+
+    const button =
+        document.getElementById("authButton");
+
+    const text =
+        document.getElementById("switchText");
+
+    const switchButton =
+        document.getElementById("switchButton");
+
+
+    if(authMode === "register"){
+
+        name.classList.remove("hidden");
+
+        name.required = true;
+
+        desc.textContent =
+            "Tạo tài khoản Megumi Chi Tiêu";
+
+        button.textContent =
+            "Đăng ký";
+
+        text.textContent =
+            "Đã có tài khoản?";
+
+        switchButton.textContent =
+            "Đăng nhập";
+
+    }else{
+
+        name.classList.add("hidden");
+
+        name.required = false;
+
+        desc.textContent =
+            "Quản lý chi tiêu cá nhân đơn giản";
+
+        button.textContent =
+            "Đăng nhập";
+
+        text.textContent =
+            "Chưa có tài khoản?";
+
+        switchButton.textContent =
+            "Đăng ký";
+
+    }
+
+}
+
+
+document
+.getElementById("authForm")
+.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        const data = users();
+
+
+        if(authMode === "register"){
+
+            const name =
+                document
+                .getElementById("name")
+                .value
+                .trim();
+
+
+            if(!name){
+
+                alert("Vui lòng nhập tên.");
+
+                return;
+
+            }
+
+
+            if(data[email]){
+
+                alert(
+                    "Email này đã tồn tại."
+                );
+
+                return;
+
+            }
+
+
+            data[email] = {
+
+                name:name,
+
+                password:password
+
+            };
+
+
+            saveUsers(data);
+
+
+            alert(
+                "Đăng ký thành công!"
+            );
+
+
+            toggleAuth();
+
+
+            document
+            .getElementById("password")
+            .value = "";
+
+        }else{
+
+            if(
+                !data[email] ||
+                data[email].password !== password
+            ){
+
+                alert(
+                    "Email hoặc mật khẩu không đúng."
+                );
+
+                return;
+
+            }
+
+
+            localStorage.setItem(
+                "megumi_current",
+                email
+            );
+
+
+            showApp();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   SHOW APP
+========================================== */
+
+function showApp(){
+
+    const email =
+        currentUser();
+
+    const data =
+        users();
+
+    if(!data[email]) return;
+
+
+    document
+    .getElementById("auth")
+    .style.display = "none";
+
+
+    document
+    .getElementById("app")
+    .style.display = "block";
+
+
+    document
+    .getElementById("headerName")
+    .textContent =
+        data[email].name;
+
+
+    document
+    .getElementById("welcomeName")
+    .textContent =
+        data[email].name;
+
+
+    document
+    .getElementById("date")
+    .value =
+        today();
+
+
+    render();
+
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "megumi_current"
+    );
+
+    location.reload();
+
+}
+
+
+/* ==========================================
+   TODAY
+========================================== */
+
+function today(){
+
+    const d = new Date();
+
+    return d.toISOString().split("T")[0];
+
+}
+
+
+/* ==========================================
+   TYPE
+========================================== */
+
+function setType(value){
+
+    type = value;
+
+
+    document
+    .getElementById("expenseType")
+    .classList.remove("active");
+
+
+    document
+    .getElementById("incomeType")
+    .classList.remove("active");
+
+
+    if(value === "expense"){
+
+        document
+        .getElementById("expenseType")
+        .classList.add("active");
+
+    }else{
+
+        document
+        .getElementById("incomeType")
+        .classList.add("active");
+
+    }
+
+}
+
+
+/* ==========================================
+   ADD
+========================================== */
+
+document
+.getElementById("transactionForm")
+.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+
+        const amount =
+            parseMoney(
+                document
+                .getElementById("amount")
+                .value
+            );
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
+
+            alert(
+                "Số tiền không hợp lệ."
+            );
+
+            return;
+
+        }
+
+
+        const item = {
+
+            id:Date.now(),
+
+            type:type,
+
+            amount:amount,
+
+            category:
+                document
+                .getElementById("category")
+                .value,
+
+            date:
+                document
+                .getElementById("date")
+                .value,
+
+            note:
+                document
+                .getElementById("note")
+                .value
+                .trim()
+
+        };
+
+
+        const data = getData();
+
+        data.unshift(item);
+
+        saveData(data);
+
+
+        this.reset();
+
+
+        document
+        .getElementById("date")
+        .value =
+            today();
+
+
+        setType("expense");
+
+        render();
+
+    }
+);
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function render(){
+
+    updateStats();
+
+    renderTransactions();
+
+    renderCategories();
+
+    drawChart();
+
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+function updateStats(){
+
+    const data =
+        getData();
+
+
+    let income = 0;
+
+    let expense = 0;
+
+
+    data.forEach(item => {
+
+        if(item.type === "income"){
+
+            income += item.amount;
+
+        }else{
+
+            expense += item.amount;
+
+        }
+
+    });
+
+
+    const balance =
+        income - expense;
+
+
+    document
+    .getElementById("balance")
+    .textContent =
+        money(balance);
+
+
+    document
+    .getElementById("income")
+    .textContent =
+        money(income);
+
+
+    document
+    .getElementById("expense")
+    .textContent =
+        money(expense);
+
+
+    document
+    .getElementById("difference")
+    .textContent =
+        money(balance);
+
+}
+
+
+/* ==========================================
+   TRANSACTIONS
+========================================== */
+
+function renderTransactions(){
+
+    const list =
+        document.getElementById("list");
+
+
+    const search =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+
+    const filterType =
+        document
+        .getElementById("filterType")
+        .value;
+
+
+    const filterCategory =
+        document
+        .getElementById("filterCategory")
+        .value;
+
+
+    let data =
+        getData();
+
+
+    data =
+        data.filter(item => {
+
+            const cat =
+                categories[item.category]
+                || categories.other;
+
+
+            const text =
+                (
+                    item.note +
+                    " " +
+                    cat.name
+                ).toLowerCase();
+
+
+            return (
+
+                text.includes(search)
+
+                &&
+
+                (
+                    filterType === "all" ||
+                    item.type === filterType
+                )
+
+                &&
+
+                (
+                    filterCategory === "all" ||
+                    item.category === filterCategory
+                )
+
+            );
+
+        });
+
+
+    if(data.length === 0){
+
+        list.innerHTML =
+            `<div class="empty">
+                Chưa có giao dịch.
+            </div>`;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        data.map(item => {
+
+            const cat =
+                categories[item.category]
+                || categories.other;
+
+
+            const sign =
+                item.type === "income"
+                ? "+"
+                : "-";
+
+
+            return `
+
+            <div class="transaction">
+
+                <div class="transaction-left">
+
+                    <div class="icon">
+                        ${cat.icon}
+                    </div>
+
+                    <div>
+
+                        <div class="transaction-name">
+                            ${safe(
+                                item.note ||
+                                cat.name
+                            )}
+                        </div>
+
+                        <div class="transaction-date">
+                            ${cat.name}
+                            ·
+                            ${dateFormat(item.date)}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="transaction-right">
+
+                    <span
+                        class="amount ${item.type}">
+                        ${sign}${money(item.amount)}
+                    </span>
+
+                    <button
+                        class="small-btn edit-btn"
+                        onclick="editTransaction(${item.id})">
+                        ✏️
+                    </button>
+
+                    <button
+                        class="small-btn delete-btn"
+                        onclick="deleteTransaction(${item.id})">
+                        ×
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* ==========================================
+   DELETE
+========================================== */
+
+function deleteTransaction(id){
+
+    if(
+        !confirm(
+            "Bạn có chắc muốn xóa giao dịch này?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const data =
+        getData()
+        .filter(item =>
+            item.id !== id
+        );
+
+
+    saveData(data);
+
+    render();
+
+}
+
+
+/* ==========================================
+   EDIT
+========================================== */
+
+function editTransaction(id){
+
+    const item =
+        getData()
+        .find(x => x.id === id);
+
+
+    if(!item) return;
+
+
+    editingId = id;
+
+
+    document
+    .getElementById("editAmount")
+    .value =
+        item.amount;
+
+
+    document
+    .getElementById("editCategory")
+    .value =
+        item.category;
+
+
+    document
+    .getElementById("editDate")
+    .value =
+        item.date;
+
+
+    document
+    .getElementById("editNote")
+    .value =
+        item.note;
+
+
+    document
+    .getElementById("editModal")
+    .classList.remove("hidden");
+
+}
+
+
+function closeEdit(){
+
+    document
+    .getElementById("editModal")
+    .classList.add("hidden");
+
+    editingId = null;
+
+}
+
+
+function saveEdit(){
+
+    const amount =
+        parseMoney(
+            document
+            .getElementById("editAmount")
+            .value
+        );
+
+
+    if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
+
+        alert(
+            "Số tiền không hợp lệ."
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        getData();
+
+
+    const item =
+        data.find(
+            x => x.id === editingId
+        );
+
+
+    if(!item) return;
+
+
+    item.amount = amount;
+
+    item.category =
+        document
+        .getElementById("editCategory")
+        .value;
+
+    item.date =
+        document
+        .getElementById("editDate")
+        .value;
+
+    item.note =
+        document
+        .getElementById("editNote")
+        .value
+        .trim();
+
+
+    saveData(data);
+
+    closeEdit();
+
+    render();
+
+}
+
+
+/* ==========================================
+   CATEGORY STATS
+========================================== */
+
+function renderCategories(){
+
+    const box =
+        document
+        .getElementById("categories");
+
+
+    const data =
+        getData()
+        .filter(x =>
+            x.type === "expense"
+        );
+
+
+    const totals = {};
+
+    let total = 0;
+
+
+    data.forEach(item => {
+
+        totals[item.category] =
+            (totals[item.category] || 0)
+            + item.amount;
+
+        total += item.amount;
+
+    });
+
+
+    if(total === 0){
+
+        box.innerHTML =
+            `<div class="empty">
+                Chưa có dữ liệu.
+            </div>`;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        Object.entries(totals)
+        .sort((a,b) => b[1]-a[1])
+        .map(([key,value]) => {
+
+            const cat =
+                categories[key]
+                || categories.other;
+
+
+            const percent =
+                value / total * 100;
+
+
+            return `
+
+            <div class="category-row">
+
+                <div class="category-head">
+
+                    <span>
+                        ${cat.icon}
+                        ${cat.name}
+                    </span>
+
+                    <span>
+                        ${money(value)}
+                    </span>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        style="width:${percent}%">
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* ==========================================
+   CHART
+========================================== */
+
+function drawChart(){
+
+    const canvas =
+        document.getElementById("chart");
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    const data =
+        getData()
+        .filter(x =>
+            x.type === "expense"
+        );
+
+
+    const totals = {};
+
+
+    data.forEach(item => {
+
+        totals[item.category] =
+            (totals[item.category] || 0)
+            + item.amount;
+
+    });
+
+
+    const entries =
+        Object.entries(totals);
+
+
+    if(entries.length === 0){
+
+        ctx.fillStyle =
+            "#888";
+
+        ctx.font =
+            "16px Arial";
+
+        ctx.textAlign =
+            "center";
+
+        ctx.fillText(
+            "Chưa có dữ liệu",
+            150,
+            150
+        );
+
+        return;
+
+    }
+
+
+    const total =
+        entries.reduce(
+            (sum,x) =>
+                sum + x[1],
+            0
+        );
+
+
+    const colors = [
+
+        "#7c5cff",
+        "#22c55e",
+        "#f59e0b",
+        "#ef4444",
+        "#06b6d4",
+        "#ec4899",
+        "#14b8a6",
+        "#f97316",
+        "#64748b",
+        "#8b5cf6"
+
+    ];
+
+
+    let start =
+        -Math.PI / 2;
+
+
+    entries.forEach(
+        ([key,value],index) => {
+
+            const angle =
+                value / total *
+                Math.PI * 2;
+
+
+            ctx.beginPath();
+
+            ctx.moveTo(150,150);
+
+            ctx.arc(
+                150,
+                150,
+                110,
+                start,
+                start + angle
+            );
+
+            ctx.closePath();
+
+            ctx.fillStyle =
+                colors[
+                    index % colors.length
+                ];
+
+            ctx.fill();
+
+
+            start += angle;
+
+        }
+    );
+
+
+    /* DONUT */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        150,
+        150,
+        60,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fillStyle =
+        getComputedStyle(
+            document.body
+        ).getPropertyValue(
+            "--card"
+        );
+
+    ctx.fill();
+
+
+    ctx.fillStyle =
+        getComputedStyle(
+            document.body
+        ).getPropertyValue(
+            "--text"
+        );
+
+
+    ctx.textAlign =
+        "center";
+
+
+    ctx.font =
+        "bold 13px Arial";
+
+
+    ctx.fillText(
+        "Tổng chi",
+        150,
+        146
+    );
+
+
+    ctx.font =
+        "11px Arial";
+
+
+    ctx.fillText(
+        money(total),
+        150,
+        164
+    );
+
+}
+
+
+/* ==========================================
+   EXPORT
+========================================== */
+
+function exportData(){
+
+    const data =
+        getData();
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "megumi-chi-tieu-backup.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* ==========================================
+   IMPORT
+========================================== */
+
+function importData(){
+
+    document
+    .getElementById("file")
+    .click();
+
+}
+
+
+function handleImport(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            try{
+
+                const data =
+                    JSON.parse(
+                        e.target.result
+                    );
+
+
+                if(
+                    !Array.isArray(data)
+                ){
+
+                    throw new Error();
+
+                }
+
+
+                saveData(data);
+
+                render();
+
+
+                alert(
+                    "Đã nhập dữ liệu thành công!"
+                );
+
+            }catch{
+
+                alert(
+                    "File không hợp lệ."
+                );
+
+            }
+
+        };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* ==========================================
+   CLEAR
+========================================== */
+
+function clearData(){
+
+    if(
+        !confirm(
+            "Xóa toàn bộ giao dịch?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    saveData([]);
+
+    render();
+
+}
+
+
+/* ==========================================
+   DARK MODE
+========================================== */
+
+function toggleDark(){
+
+    document
+    .body
+    .classList
+    .toggle("dark");
+
+
+    localStorage.setItem(
+        "megumi_dark",
+        document
+        .body
+        .classList
+        .contains("dark")
+    );
+
+}
+
+
+/* ==========================================
+   DATE
+========================================== */
+
+function dateFormat(date){
+
+    if(!date) return "";
+
+    const p =
+        date.split("-");
+
+
+    if(p.length !== 3){
+
+        return date;
+
+    }
+
+
+    return (
+        p[2] +
+        "/" +
+        p[1] +
+        "/" +
+        p[0]
+    );
+
+}
+
+
+/* ==========================================
+   SECURITY
+========================================== */
+
+function safe(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        if(
+            localStorage.getItem(
+                "megumi_dark"
+            ) === "true"
+        ){
+
+            document
+            .body
+            .classList
+            .add("dark");
+
+        }
+
+
+        if(currentUser()){
+
+            showApp();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
